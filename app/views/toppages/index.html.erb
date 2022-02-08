@@ -1,0 +1,11 @@
+<% if logged_in? %>
+  <p>ログインユーザ：<%= current_user.name %></p>
+<% end %>
+<div class="row">
+  <div class="col-sm-5 bg-primary">
+    <p>左側の説明文</p>
+  </div>
+  <div class="col-sm-7 bg-secondary">
+    <p>右側の画像</p>
+  </div>
+</div>
