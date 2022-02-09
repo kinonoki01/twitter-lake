@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-sm-3">
+    <%= render 'layouts/main_tab' %>
+    <table class="table table-bordered">
+      <% @favorite_users.each do |favorite_user| %>
+        <tr>
+          <td><%= link_to favorite_user.twitter_account, favorite_user %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td><%= link_to '＋', new_favorite_user_path, class: 'btn btn-primary btn-lg' %></td>
+      </tr>
+    </table>
+  </div>
+</div>

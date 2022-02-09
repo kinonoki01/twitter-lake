@@ -1,0 +1,17 @@
+<div class="text-center">
+  <h1>ユーザー追加</h1>
+</div>
+<div>
+  <h3>ユーザー名</h3>
+  <p>※Twitterのホーム画面で太字のアカウント名の下にある「＠」から始まっているもの</p>
+  <%= form_with(model: @favorite_user) do |f| %>
+    <div class="mb-3">
+      <%= f.label :twitter_account, 'ユーザー名'%>
+      <%= f.text_field :twitter_account, class: 'form-control' %>
+    </div>
+    
+    <div>
+      <%= f.submit '追加', class: 'btn btn-primary w-100' %>
+    </div>
+  <% end %>
+</div>

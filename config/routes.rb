@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   
   resources :folders
+  resources :favorite_users, only: [:index, :show, :new, :create, :destroy]
 end

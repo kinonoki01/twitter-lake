@@ -1,13 +1,6 @@
 <div class="row">
   <div class="col-sm-3">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">お気に入り</a>
-      </li>
-      <li>
-        <a class="nav-link" aria-current="page" href="#">ユーザー</a>
-      </li>
-    </ul>
+    <%= render 'layouts/main_tab' %>
     <table class="table table-bordered">
       <% @folders.each do |folder| %>
         <tr>
