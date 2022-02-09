@@ -1,0 +1,14 @@
+<%= form_with(model: model) do |f| %>
+  <div class="mb-3">
+    <%= f.label :name, 'フォルダ名'%>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  
+  <div>
+    <% if request.path == '/folders/new' %>
+      <%= f.submit '追加', class: 'btn btn-primary' %>
+    <% else %>
+      <%= f.submit '更新', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+<% end %>

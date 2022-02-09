@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-sm-3">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">お気に入り</a>
+      </li>
+      <li>
+        <a class="nav-link" aria-current="page" href="#">ユーザー</a>
+      </li>
+    </ul>
+    <table class="table table-bordered">
+      <% @folders.each do |folder| %>
+        <tr>
+          <td><%= folder.name %></td>
+          <td><%= link_to '詳細', folder %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td><%= link_to '＋', new_folder_path, class: 'btn btn-primary btn-lg' %></td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="col-sm-9">
+  </div>
+</div>
+

@@ -1,7 +1,6 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+User.create(name: '111', email: '111@111.com', password: '111')
+User.create(name: '222', email: '222@222.com', password: '222')
+
+Folder.create(name: 'お気に入り1', position: 1, user_id: 1)
+Folder.create(name: 'お気に入り2', position: 2, user_id: 1)
+Folder.create(name: 'お気に入り3', position: 3, user_id: 1)
