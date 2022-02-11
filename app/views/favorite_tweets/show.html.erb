@@ -1,0 +1,15 @@
+<div class="text-center">
+  <h1>お気に入りツイート</h1>
+</div>
+<div>
+  <h3>フォルダ名：<%= @folder.name %></h3>
+  <div><%= @favorite_tweet.tweet.html_safe %></div>
+  <div class="row">
+    <div class="col-sm-5">
+      <%= link_to '編集', edit_favorite_tweet_path, class: 'btn btn-primary' %>
+    </div>
+    <div class="offset-sm-2 col-sm-5">
+      <%= link_to '削除', favorite_tweet_path(@folder, @favorite_tweet), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>

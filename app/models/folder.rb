@@ -3,4 +3,5 @@ class Folder < ApplicationRecord
   validates :position, presence: true, uniqueness: true
   
   belongs_to :user
+  has_many :favorite_tweets
 end

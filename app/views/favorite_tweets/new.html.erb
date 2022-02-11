@@ -1,0 +1,15 @@
+<div class="text-center">
+  <h1>お気に入りツイートを保存</h1>
+</div>
+<div>
+  <%= form_with(model: @favorite_tweet) do |f| %>
+    <div class="mb-3">
+      <%= f.label :tweet, 'ツイートの埋め込み用HTML' %>
+      <%= f.text_field :tweet, class: 'form-control' %>
+    </div>
+    
+    <div>
+      <%= f.submit '追加', class: 'btn btn-primary w-100' %>
+    </div>
+  <% end %>
+</div>

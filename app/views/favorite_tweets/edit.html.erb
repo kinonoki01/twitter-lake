@@ -1,0 +1,22 @@
+<div class="text-center">
+  <h1>お気に入りツイートの移動・コピー</h1>
+</div>
+<div>
+  <h3>フォルダ名:<%= @folder.name %></h3>
+  <%= @favorite_tweet.tweet %>
+  <%= form_with(model: @favorite_tweet) do |f| %>
+    <div class="mb-3">
+      <%= f.label :folder_id, '移動先フォルダ名' %>
+      <%= f.select :folder_id, @folder_list, {}, class: 'form-select' %>
+      </br>
+      <%= f.radio_button :edit_folder, :move, checked: true %>
+      <%= f.label :edit_folder, '移動', {value: :move, style: "display: inline-block;"} %>
+      <%= f.radio_button :edit_folder, :copy %>
+      <%= f.label :edit_folder, 'コピー', {value: :copy, style: "display: inline-block;"} %>
+    </div>
+    
+    <div>
+      <%= f.submit '更新', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
