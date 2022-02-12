@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
   root to: 'toppages#index'
   
-  get 'signup', to: 'users#new'
   resources :users, only: [:index, :create, :update]
+  get 'signup', to: 'users#new'
   get 'user_edit', to: 'users#edit'
-  #post 'user_edit', to: 'users#update'
   
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
+  
+  get 'howto' , to: 'how_to_uses#index'
   
   resources :folders do
     member do
