@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <% if logged_in? %>
-            <li class="nav-item"><%= link_to current_user.name, '/', class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to current_user.name, user_edit_path(current_user), class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to '使い方', '/', class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to 'お問い合わせ', '/', class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to 'Logout', logout_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'nav-link' %></li>

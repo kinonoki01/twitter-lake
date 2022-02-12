@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_11_120233) do
+ActiveRecord::Schema.define(version: 2022_02_11_235816) do
 
   create_table "favorite_tweets", charset: "utf8mb4", force: :cascade do |t|
     t.text "tweet"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 2022_02_11_120233) do
     t.index ["user_id"], name: "index_folders_on_user_id"
   end
 
+  create_table "user_settings", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "twitter_account_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_settings_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -50,4 +58,5 @@ ActiveRecord::Schema.define(version: 2022_02_11_120233) do
   add_foreign_key "favorite_tweets", "folders"
   add_foreign_key "favorite_users", "users"
   add_foreign_key "folders", "users"
+  add_foreign_key "user_settings", "users"
 end

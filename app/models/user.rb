@@ -9,4 +9,6 @@ class User < ApplicationRecord
   
   has_many :folders
   has_many :favorite_users
+  has_one :user_setting
+  accepts_nested_attributes_for :user_setting
 end

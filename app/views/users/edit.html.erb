@@ -1,2 +1,42 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<div class="text-center">
+  <h1>アカウント設定</h1>
+</div>
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+    <%= form_with(model: current_user) do |f| %>
+      <%= render 'layouts/error_messages', model: current_user %>
+      <%= render 'layouts/error_messages', model: @user_setting %>
+    
+      <div class="mb-3">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      
+      <div class="mb-3">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+      
+      <div class="mb-3">
+        <%= fields_for :user_setting, @user_setting do |user_setting| %>
+          <%= user_setting.label :twitter_account_name, 'Twitterアカウント名' %>
+          <%= user_setting.text_field :twitter_account_name, class: 'form-control' %>
+        <% end %>
+      </div>
+      
+      <div class="mb-3">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+      
+      <div class="mb-3">
+        <%= f.label :password_confirmation, 'confirmation' %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+      
+      <div>
+        <%= f.submit '更新', class: 'btn btn-primary w-100' %>
+      </div>
+    <% end %>
+  </div>
+</div>
