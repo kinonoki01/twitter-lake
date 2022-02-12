@@ -2,7 +2,7 @@
   <h1>お気に入りツイートを保存</h1>
 </div>
 <div>
-  <%= form_with(model: @favorite_tweet) do |f| %>
+  <%= form_with(model: @favorite_tweet, url: folder_favorite_tweets_path) do |f| %>
     <div class="mb-3">
       <%= f.label :tweet, 'ツイートの埋め込み用HTML' %>
       <%= f.text_field :tweet, class: 'form-control' %>

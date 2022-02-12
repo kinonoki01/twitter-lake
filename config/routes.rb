@@ -12,9 +12,7 @@ Rails.application.routes.draw do
   get 'howto' , to: 'how_to_uses#index'
   
   resources :folders do
-    member do
-      resources :favorite_tweets
-    end
+    resources :favorite_tweets
   end
   resources :favorite_users, only: [:index, :show, :new, :create, :destroy]
 end

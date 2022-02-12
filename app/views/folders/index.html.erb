@@ -4,7 +4,7 @@
     <table class="table table-bordered">
       <% @folders.each do |folder| %>
         <tr>
-          <td><%= link_to folder.name, favorite_tweets_path(folder), class: 'nav-link' %></td>
+          <td><%= link_to folder.name, folder_favorite_tweets_path(folder), class: 'nav-link' %></td>
           <td><%= link_to '詳細', folder %></td>
         </tr>
       <% end %>

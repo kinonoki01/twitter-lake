@@ -3,8 +3,9 @@
 </div>
 <div>
   <h3>フォルダ名:<%= @folder.name %></h3>
-  <%= @favorite_tweet.tweet %>
-  <%= form_with(model: @favorite_tweet) do |f| %>
+  <%= @favorite_tweet.tweet.html_safe %>
+  <%= form_with(model: @favorite_tweet, url: folder_favorite_tweet_path) do |f| %>
+    <%= render 'layouts/error_messages', model: @favorite_tweet %>
     <div class="mb-3">
       <%= f.label :folder_id, '移動先フォルダ名' %>
       <%= f.select :folder_id, @folder_list, {}, class: 'form-select' %>
