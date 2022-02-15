@@ -4,12 +4,29 @@ class FavoriteTweetsController < ApplicationController
   def index
     @folders = current_user.folders.order(position: :asc) # フォルダ一覧表示用
     @folder = current_user.folders.find_by(id: params[:folder_id])
-    @favorite_tweets = @folder.favorite_tweets.order(position: :asc)
+    
+    if !@folder
+      # ログインユーザ以外が作成したフォルダ、もしくは存在しないフォルダを指定した場合
+      flash[:success] = '指定したフォルダは存在しません'
+      redirect_to root_url
+    else
+      @favorite_tweets = @folder.favorite_tweets.order(position: :asc)
+    end
   end
 
   def show
     @folder = current_user.folders.find_by(id: params[:folder_id])
-    @favorite_tweet = @folder.favorite_tweets.find_by(id: params[:id])
+    if !@folder
+      flash[:success] = '指定したフォルダは存在しません'
+      redirect_to root_url
+    else
+      @favorite_tweet = @folder.favorite_tweets.find_by(id: params[:id])
+      if !@favorite_tweet
+        # ログインユーザ以外が追加したツイート、もしくは存在しないツイートを指定した場合
+        flash[:success] = '指定したツイートは存在しません'
+        redirect_to folder_favorite_tweets_url(@folder)
+      end
+    end
   end
 
   def new
@@ -36,12 +53,23 @@ class FavoriteTweetsController < ApplicationController
 
   def edit
     @folder = current_user.folders.find_by(id: params[:folder_id])
-    @favorite_tweet = @folder.favorite_tweets.find_by(id: params[:id])
-    folders = current_user.folders.order(position: :asc)
-    @folder_list = [] # プルダウンリスト表示用
-    
-    folders.each do |folder|
-      @folder_list.push([folder.name, folder.id])
+    if !@folder
+      flash[:success] = '指定したフォルダは存在しません'
+      redirect_to root_url
+    else
+      @favorite_tweet = @folder.favorite_tweets.find_by(id: params[:id])
+      if !@favorite_tweet
+        # ログインユーザ以外が追加したツイート、もしくは存在しないツイートを指定した場合
+        flash[:success] = '指定したツイートは存在しません'
+        redirect_to folder_favorite_tweets_url(@folder)
+      else
+        folders = current_user.folders.order(position: :asc)
+        @folder_list = [] # プルダウンリスト表示用
+        
+        folders.each do |folder|
+          @folder_list.push([folder.name, folder.id])
+        end
+      end
     end
   end
 
@@ -72,5 +100,9 @@ class FavoriteTweetsController < ApplicationController
   
   def favorite_tweet_params
     params.require(:favorite_tweet).permit(:tweet, :position, :folder_id)
+  end
+  
+  def exist_folder
+    
   end
 end

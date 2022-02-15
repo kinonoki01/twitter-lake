@@ -1,12 +1,13 @@
 class FoldersController < ApplicationController
   before_action :require_user_logged_in
+  before_action :find_folder, only: [:show, :edit, :update, :destroy]
   
   def index
     @folders = current_user.folders.order(position: :asc)
   end
 
   def show
-    find_folder
+    exist_folder
   end
 
   def new
@@ -16,8 +17,8 @@ class FoldersController < ApplicationController
   def create
     @folders = current_user.folders.order(position: :asc) # index表示用
 
-    # positionの最大値を更新    
-    position = current_user.folders.maximum(:position) + 1
+    # positionの最大値を更新
+    @folders.any? ? position = current_user.folders.maximum(:position) + 1 : position = 1
     params[:folder][:position] = position
     
     @folder = current_user.folders.new(folder_params)
@@ -31,12 +32,10 @@ class FoldersController < ApplicationController
   end
 
   def edit
-    find_folder
+    exist_folder
   end
 
   def update
-    find_folder
-    
     if @folder.update(folder_params)
       flash[:success] = 'フォルダの名前を更新しました'
       redirect_to folders_url
@@ -47,8 +46,6 @@ class FoldersController < ApplicationController
   end
 
   def destroy
-    find_folder
-    
     @folder.destroy
     flash[:success] = 'フォルダを削除しました'
     redirect_to folders_url
@@ -63,4 +60,13 @@ class FoldersController < ApplicationController
   def find_folder
     @folder = current_user.folders.find_by(id: params[:id])
   end
+  
+  def exist_folder
+    if !@folder
+      # ログインユーザ以外が作成したフォルダ、もしくは存在しないフォルダを指定した場合
+      flash[:success] = '指定したフォルダは存在しません'
+      redirect_to root_url
+    end
+  end
+
 end
