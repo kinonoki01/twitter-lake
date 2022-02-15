@@ -5,6 +5,8 @@
 <div class="text-center">
   <h3>変更前：<%= @folder.name %></h3>
 </div>
-<div>
-  <%= render 'form', model: @folder %>
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+    <%= render 'form', model: @folder %>
+  </div>
 </div>

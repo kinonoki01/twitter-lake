@@ -1,4 +1,5 @@
 <%= form_with(model: model) do |f| %>
+  <%= render 'layouts/error_messages', model: model %>
   <div class="mb-3">
     <%= f.label :name, 'フォルダ名'%>
     <%= f.text_field :name, class: 'form-control' %>
@@ -6,9 +7,9 @@
   
   <div>
     <% if request.path == '/folders/new' %>
-      <%= f.submit '追加', class: 'btn btn-primary' %>
+      <%= f.submit '追加', class: 'btn btn-primary w-100' %>
     <% else %>
-      <%= f.submit '更新', class: 'btn btn-primary' %>
+      <%= f.submit '更新', class: 'btn btn-primary w-100' %>
     <% end %>
   </div>
 <% end %>

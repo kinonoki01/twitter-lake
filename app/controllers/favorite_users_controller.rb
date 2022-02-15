@@ -23,7 +23,7 @@ class FavoriteUsersController < ApplicationController
     @favorite_user = current_user.favorite_users.new(favorite_user_params)
     if @favorite_user.save
       flash[:success] = 'ユーザーを追加しました'
-      redirect_to favorite_users_url
+      redirect_to favorite_user_url(@favorite_user)
     else
       flash.now[:danger] = 'ユーザーの追加に失敗しました'
       render :new

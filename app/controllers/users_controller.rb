@@ -10,12 +10,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
-      # ユーザ設定を空で作成しておく
-      @user_setting = @user.build_user_setting
-      @user_setting.save
-      
+    @user_setting = @user.build_user_setting # ユーザ設定を空で作成しておく
+    if @user.save && @user_setting.save
       flash[:success] = 'Signupしました'
+      session[:user_id] = @user.id
       redirect_to root_url
     else
       flash.now[:danger] = 'Signupに失敗しました'
@@ -25,6 +23,9 @@ class UsersController < ApplicationController
 
   def edit
     @user_setting = current_user.user_setting
+    puts '0-----------------------0'
+    puts @user_setting
+    puts '0-----------------------0'
   end
 
   def update

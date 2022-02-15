@@ -1,12 +1,12 @@
-<div class="text-center">
+<div class="text-center mb-3 border-bottom">
   <h1>フォルダ詳細</h1>
 </div>
 
-<div>
-  <h3>フォルダ名：<%= @folder.name %></h3>
+<div class="text-center ps-5 pe-5">
+  <h4>フォルダ名：<%= @folder.name %></h4>
   <br>
-  <div>
-    <%= link_to '編集', edit_folder_path(@folder), class: 'btn btn-primary' %>
-    <%= link_to '削除', @folder, method: :delete, data: {confirm: 'フォルダを削除するとツイートのお気に入りが全て解除されます。<br>本当によろしいですか？'}, class: 'btn btn-danger' %>
+  <div class="row">
+    <%= link_to '編集', edit_folder_path(@folder), class: 'btn btn-primary col-sm-3 offset-sm-2' %>
+    <%= link_to '削除', @folder, method: :delete, data: {confirm: 'フォルダを削除するとツイートのお気に入りが全て解除されます。<br>本当によろしいですか？'}, class: 'btn btn-danger col-sm-3 offset-sm-2' %>
   </div>
 </div>

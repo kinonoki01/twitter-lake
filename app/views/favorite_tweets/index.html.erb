@@ -1,6 +1,13 @@
 <div class="row">
   <div class="col-sm-3">
-    <%= render 'layouts/main_tab' %>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <%= link_to 'お気に入り', folders_path, class: 'nav-link active' %>
+      </li>
+      <li>
+        <%= link_to 'ユーザー', favorite_users_path, class: 'nav-link' %>
+      </li>
+    </ul>
     <table class="table table-bordered">
       <% @folders.each do |folder| %>
         <tr>
@@ -8,21 +15,23 @@
         </tr>
       <% end %>
       <tr>
-        <td><%= link_to '＋', new_folder_path, class: 'btn btn-primary btn-lg' %></td>
+        <td class="text-center">
+          <%= link_to '＋', new_folder_path, class: 'btn btn-primary btn-lg w-50' %>
+        </td>
       </tr>
     </table>
   </div>
-  <div class="col-sm-9">
+  <div class="col-sm-9 overflow-auto" style="max-height: 100%;">
     <table class="table table-bordered">
       <% @favorite_tweets.each do |favorite_tweet| %>
         <tr>
           <td><%= favorite_tweet.tweet.html_safe %></td>
-          <td><%= link_to '移動・コピー', folder_favorite_tweet_path(@folder, favorite_tweet), class: 'nav-link' %></td>
+          <td class="align-middle"><%= link_to (image_tag 'arrow-down-up.svg'), folder_favorite_tweet_path(@folder, favorite_tweet), class: 'nav-link' %></td>
         </tr>
       <% end %>
     </table>
-    <div>
-      <%= link_to '＋', new_folder_favorite_tweet_path, class: 'btn btn-primary btn-lg' %>
+    <div class="text-center">
+      <%= link_to '＋', new_folder_favorite_tweet_path, class: 'btn btn-primary btn-lg w-50' %>
     </div>
   </div>
 </div>

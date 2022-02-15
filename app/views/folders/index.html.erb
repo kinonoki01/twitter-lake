@@ -1,6 +1,13 @@
 <div class="row">
   <div class="col-sm-3">
-    <%= render 'layouts/main_tab' %>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <%= link_to 'お気に入り', folders_path, class: 'nav-link active' %>
+      </li>
+      <li>
+        <%= link_to 'ユーザー', favorite_users_path, class: 'nav-link' %>
+      </li>
+    </ul>
     <table class="table table-bordered">
       <% @folders.each do |folder| %>
         <tr>
@@ -9,7 +16,9 @@
         </tr>
       <% end %>
       <tr>
-        <td><%= link_to '＋', new_folder_path, class: 'btn btn-primary btn-lg' %></td>
+        <td colspan="2" class="text-center">
+          <%= link_to '＋', new_folder_path, class: 'btn btn-primary btn-lg w-50' %>
+        </td>
       </tr>
     </table>
   </div>
