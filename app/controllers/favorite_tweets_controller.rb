@@ -35,8 +35,17 @@ class FavoriteTweetsController < ApplicationController
   end
 
   def create
-    @folder = current_user.folders.find_by(id: params[:folder_id])
+    # 入力値から埋め込み用HTMLを作成
+    begin
+      create_uri(params[:favorite_tweet][:tweet])
+    rescue Exception => e
+      flash.now[:warning] = '入力したURLが間違っています'
+      puts e.message
+      puts e.backtrace.inspect
+    end
+    params[:favorite_tweet][:tweet] = @oembed_tweet
     
+    @folder = current_user.folders.find_by(id: params[:folder_id])
     @folder.favorite_tweets.any? ? position = @folder.favorite_tweets.maximum(:position) + 1 : position = 1
     params[:favorite_tweet][:position] = position
     
@@ -102,7 +111,16 @@ class FavoriteTweetsController < ApplicationController
     params.require(:favorite_tweet).permit(:tweet, :position, :folder_id)
   end
   
-  def exist_folder
-    
+  # 入力されたURLから埋め込みHTMLを作成
+  def create_uri(tweet)
+    tweet_id = tweet.match(/\/status\/(.*)/)[1]
+    if tweet_id.include?("status")
+      # アカウントIDがstatusであるユーザの場合の追加処理
+      tweet_id = tweet_id.match(/status\/(.*)/)[1]
+    end
+    url = "https://publish.twitter.com/oembed?url=https%3A%2F%2Ftwitter.com%2FInterior%2Fstatus%2F#{tweet_id}"
+
+    json_response = JSON.parse(OpenURI.open_uri(url).read)
+    @oembed_tweet = json_response['html']
   end
 end
