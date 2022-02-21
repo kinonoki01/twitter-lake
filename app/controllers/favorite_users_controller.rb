@@ -29,7 +29,7 @@ class FavoriteUsersController < ApplicationController
   end
 
   def destroy
-    @favorite_user = current_user.favorite_users.find_by(params[:id])
+    @favorite_user = current_user.favorite_users.find_by(id: params[:id])
     @favorite_user.destroy
     flash[:success] = 'ユーザーを削除しました'
     redirect_to favorite_users_url
