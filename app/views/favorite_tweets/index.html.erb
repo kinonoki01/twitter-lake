@@ -11,7 +11,7 @@
     <table class="table table-bordered">
       <% @folders.each do |folder| %>
         <tr>
-          <td><%= link_to folder.name, folder_favorite_tweets_path(folder), class: 'nav-link' %></td>
+          <td><%= link_to folder.name, folder_favorite_tweets_path(folder), class: "nav-link #{"text-muted" if request.fullpath.gsub('/folders/', '').gsub('/favorite_tweets', '') != folder.id.to_s}" %></td>
         </tr>
       <% end %>
       <tr>
@@ -21,12 +21,7 @@
       </tr>
     </table>
   </div>
-  <div class="col-sm-9 mh-100">
-    <div class="card">
-      <div class="card-body">
-        
-      </div>
-    </div>
+  <div class="col-sm-9 overflow-auto mb-3" style="height:800px;">
     <table class="table table-bordered">
       <% @favorite_tweets.each do |favorite_tweet| %>
         <tr>
@@ -35,8 +30,9 @@
         </tr>
       <% end %>
     </table>
-    <div class="text-center">
-      <%= link_to '＋', new_folder_favorite_tweet_path, class: 'btn btn-primary w-50' %>
-    </div>
+  </div>
+  <div class="col-sm-3"></div>
+  <div class="col-sm-9 text-center">
+    <%= link_to '＋', new_folder_favorite_tweet_path, class: 'btn btn-primary btn-lg w-50' %>
   </div>
 </div>
