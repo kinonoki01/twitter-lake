@@ -15,9 +15,10 @@
         <%= f.password_field :password, class: 'form-control' %>
       </div>
       
-      <div class="mb-3">
+      <div>
         <%= f.submit 'Login', class: 'btn btn-primary w-100' %>
       </div>
     <% end %>
+    <%= link_to 'New user?', signup_path, class: 'nav-link'%>
   </div>
 </div>
