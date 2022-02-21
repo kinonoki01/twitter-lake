@@ -21,7 +21,10 @@
       </tr>
     </table>
   </div>
-  <div class="col-sm-9 overflow-auto mb-3" style="height:800px;">
+  <div class="col-sm-9 mb-3 overflow-auto" style="height:800px;" %>
+    <div class="text-center mb-3">
+      <%= link_to '＋', new_folder_favorite_tweet_path, class: 'btn btn-primary rounded-pill w-50' %>
+    </div>
     <table class="table table-bordered">
       <% @favorite_tweets.each do |favorite_tweet| %>
         <tr>
@@ -30,9 +33,5 @@
         </tr>
       <% end %>
     </table>
-  </div>
-  <div class="col-sm-3"></div>
-  <div class="col-sm-9 text-center">
-    <%= link_to '＋', new_folder_favorite_tweet_path, class: 'btn btn-primary rounded-pill w-50' %>
   </div>
 </div>
