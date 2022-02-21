@@ -15,13 +15,13 @@
         <div class="mb-3">
           <%= f.label :folder_id, '移動先フォルダ名' %>
           <%= f.select :folder_id, @folder_list, {}, class: 'form-select' %>
-<!-- 
+
           </br>
           <%= f.radio_button :edit_folder, :move, checked: true %>
           <%= f.label :edit_folder, '移動', {value: :move, style: "display: inline-block;"} %>
           <%= f.radio_button :edit_folder, :copy %>
           <%= f.label :edit_folder, 'コピー', {value: :copy, style: "display: inline-block;"} %>
--->
+
         </div>
         
         <div>

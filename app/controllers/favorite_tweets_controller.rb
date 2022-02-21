@@ -83,16 +83,50 @@ class FavoriteTweetsController < ApplicationController
   end
 
   def update
-    @folder = current_user.folders.find_by(id: params[:folder_id])
-    @favorite_tweet = @folder.favorite_tweets.find_by(id: params[:id])
+    edit_folder = params[:favorite_tweet][:edit_folder]
+    params[:favorite_tweet].delete("edit_folder")
     
-    if @favorite_tweet.update(favorite_tweet_params)
-      flash[:success] = 'お気に入りツイートを移動しました'
-      redirect_to folder_favorite_tweets_url(@folder)
+    if edit_folder == 'move'
+      # お気に入りツイートのフォルダ移動の場合
+      @folder = current_user.folders.find_by(id: params[:folder_id])
+      @favorite_tweet = @folder.favorite_tweets.find_by(id: params[:id])
+      
+      if @favorite_tweet.update(favorite_tweet_params)
+        flash[:success] = 'お気に入りツイートを移動しました'
+        redirect_to folder_favorite_tweets_url(@folder)
+      else
+        flash.now[:danger] = 'お気に入りツイートの移動に失敗しました'
+        render :edit
+      end
     else
-      flash.now[:danger] = 'お気に入りツイートの移動に失敗しました'
-      render :edit
+      # お気に入りツイートのコピーの場合、保存するパラメータを設定
+      orginal_folder = current_user.folders.find_by(id: params[:folder_id])
+      original_favorite_tweet = orginal_folder.favorite_tweets.find_by(id: params[:id])
+      params[:favorite_tweet][:tweet] = original_favorite_tweet.tweet
+      
+      # コピー先のpositionを取得
+      @folder = current_user.folders.find_by(id: params[:favorite_tweet][:folder_id])
+      @folder.favorite_tweets.any? ? position = @folder.favorite_tweets.maximum(:position) + 1 : position = 1
+      params[:favorite_tweet][:position] = position
+      
+      @favorite_tweet = @folder.favorite_tweets.new(favorite_tweet_params)
+      
+      if @favorite_tweet.save
+        flash[:success] = "ツイートを#{@folder.name}フォルダにコピーしました。"
+        redirect_to folder_favorite_tweets_url(@folder)
+      else
+        folders = current_user.folders.order(position: :asc)
+        @folder_list = [] # プルダウンリスト表示用
+        
+        folders.each do |folder|
+          @folder_list.push([folder.name, folder.id])
+        end
+        
+        flash.now[:danger] = 'ツイートのコピーに失敗しました'
+        render :edit
+      end
     end
+    
   end
 
   def destroy
