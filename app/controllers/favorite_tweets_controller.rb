@@ -1,9 +1,9 @@
 class FavoriteTweetsController < ApplicationController
   before_action :require_user_logged_in
+  before_action :find_folder, only: [:index, :show, :new, :create]
   
   def index
     @folders = current_user.folders.order(position: :asc) # フォルダ一覧表示用
-    @folder = current_user.folders.find_by(id: params[:folder_id])
     
     if !@folder
       # ログインユーザ以外が作成したフォルダ、もしくは存在しないフォルダを指定した場合
@@ -15,7 +15,6 @@ class FavoriteTweetsController < ApplicationController
   end
 
   def show
-    @folder = current_user.folders.find_by(id: params[:folder_id])
     if !@folder
       flash[:success] = '指定したフォルダは存在しません'
       redirect_to root_url
@@ -30,7 +29,6 @@ class FavoriteTweetsController < ApplicationController
   end
 
   def new
-    @folder = current_user.folders.find_by(id: params[:folder_id])
     @favorite_tweet = @folder.favorite_tweets.new
   end
 
@@ -40,17 +38,15 @@ class FavoriteTweetsController < ApplicationController
       create_uri(params[:favorite_tweet][:tweet])
     rescue Exception => e
       flash.now[:warning] = '入力したURLが間違っています'
-      puts e.message
-      puts e.backtrace.inspect
     end
     params[:favorite_tweet][:tweet] = @oembed_tweet
     
-    @folder = current_user.folders.find_by(id: params[:folder_id])
+    # 保存先フォルダの最大positionから保存するpositionを取得
     @folder.favorite_tweets.any? ? position = @folder.favorite_tweets.maximum(:position) + 1 : position = 1
     params[:favorite_tweet][:position] = position
     
     @favorite_tweet = @folder.favorite_tweets.new(favorite_tweet_params)
-      
+    
     if @favorite_tweet.save
       flash[:success] = 'ツイートをお気に入りに登録しました'
       redirect_to folder_favorite_tweets_url(@folder)
@@ -84,7 +80,7 @@ class FavoriteTweetsController < ApplicationController
 
   def update
     edit_folder = params[:favorite_tweet][:edit_folder]
-    params[:favorite_tweet].delete("edit_folder")
+    params[:favorite_tweet].delete("edit_folder")   # DBへの保存時に必要ないパラメータのため削除
     
     if edit_folder == 'move'
       # お気に入りツイートのフォルダ移動の場合
@@ -93,7 +89,7 @@ class FavoriteTweetsController < ApplicationController
       
       if @favorite_tweet.update(favorite_tweet_params)
         flash[:success] = 'お気に入りツイートを移動しました'
-        redirect_to folder_favorite_tweets_url(@folder)
+        redirect_to folder_favorite_tweets_url(params[:favorite_tweet][:folder_id])
       else
         flash.now[:danger] = 'お気に入りツイートの移動に失敗しました'
         render :edit
@@ -104,7 +100,7 @@ class FavoriteTweetsController < ApplicationController
       original_favorite_tweet = orginal_folder.favorite_tweets.find_by(id: params[:id])
       params[:favorite_tweet][:tweet] = original_favorite_tweet.tweet
       
-      # コピー先のpositionを取得
+      # コピー先foldersテーブルの最大positionから保存するpositionを計算
       @folder = current_user.folders.find_by(id: params[:favorite_tweet][:folder_id])
       @folder.favorite_tweets.any? ? position = @folder.favorite_tweets.maximum(:position) + 1 : position = 1
       params[:favorite_tweet][:position] = position
@@ -143,6 +139,10 @@ class FavoriteTweetsController < ApplicationController
   
   def favorite_tweet_params
     params.require(:favorite_tweet).permit(:tweet, :position, :folder_id)
+  end
+  
+  def find_folder
+    @folder = current_user.folders.find_by(id: params[:folder_id])
   end
   
   # 入力されたURLから埋め込みHTMLを作成

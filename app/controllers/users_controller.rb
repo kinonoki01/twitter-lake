@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:index, :edit, :update]
-  
-  def index
-  end
 
   def new
     @user = User.new
@@ -23,9 +20,6 @@ class UsersController < ApplicationController
 
   def edit
     @user_setting = current_user.user_setting
-    puts '0-----------------------0'
-    puts @user_setting
-    puts '0-----------------------0'
   end
 
   def update

@@ -1,9 +1,9 @@
 class FoldersController < ApplicationController
   before_action :require_user_logged_in
   before_action :find_folder, only: [:show, :edit, :update, :destroy]
+  before_action :find_folders, only: [:index, :create]
   
   def index
-    @folders = current_user.folders.order(position: :asc)
   end
 
   def show
@@ -16,9 +16,7 @@ class FoldersController < ApplicationController
   end
 
   def create
-    @folders = current_user.folders.order(position: :asc) # index表示用
-
-    # positionの最大値を更新
+    # foldersテーブルの最大positionから保存するpositionを計算
     @folders.any? ? position = current_user.folders.maximum(:position) + 1 : position = 1
     params[:folder][:position] = position
     
@@ -62,6 +60,10 @@ class FoldersController < ApplicationController
     @folder = current_user.folders.find_by(id: params[:id])
   end
   
+  def find_folders
+    @folders = current_user.folders.order(position: :asc)
+  end
+  
   def exist_folder
     if !@folder
       # ログインユーザ以外が作成したフォルダ、もしくは存在しないフォルダを指定した場合
@@ -69,5 +71,4 @@ class FoldersController < ApplicationController
       redirect_to root_url
     end
   end
-
 end

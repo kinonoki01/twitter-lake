@@ -1,12 +1,11 @@
 class FavoriteUsersController < ApplicationController
   before_action :require_user_logged_in
+  before_action :find_favorite_users, only: [:index, :show, :create]
   
   def index
-    @favorite_users = current_user.favorite_users.order(position: :asc)
   end
 
   def show
-    @favorite_users = current_user.favorite_users.order(position: :asc)
     @favorite_user = current_user.favorite_users.find_by(id: params[:id])
   end
 
@@ -15,8 +14,7 @@ class FavoriteUsersController < ApplicationController
   end
 
   def create
-    @favorite_users = current_user.favorite_users.order(position: :asc) # index表示用
-
+    # favorite_usersテーブルの最大positionから保存するpositionを計算
     current_user.favorite_users.maximum(:position).nil? ? position = 1 : position = current_user.favorite_users.maximum(:position) + 1
     params[:favorite_user][:position] = position
 
@@ -41,5 +39,9 @@ class FavoriteUsersController < ApplicationController
   
   def favorite_user_params
     params.require(:favorite_user).permit(:twitter_account, :position)
+  end
+  
+  def find_favorite_users
+    @favorite_users = current_user.favorite_users.order(position: :asc)
   end
 end
