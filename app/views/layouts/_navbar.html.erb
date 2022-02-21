@@ -11,7 +11,7 @@
           <% if logged_in? %>
             <li class="nav-item"><%= link_to current_user.name, user_edit_path(current_user), class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to 'お問い合わせ', 'https://forms.gle/Awh9Uo48UgWNkyiU8', target: :_blank, class: 'nav-link' %></li>
-            <li class="nav-item"><%= link_to 'Logout', logout_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to 'Logout', logout_path, method: :delete, data: { confirm: 'ログアウトしてよろしいですか？?' }, class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to (image_tag '2021 Twitter logo - blue_mini.png'), 'https://twitter.com/', target: :_blank, class: 'img-fluid' %></li>
           <% else %>
             <li class="nav-item"><%= link_to 'Signup', signup_path, class: 'nav-link' %></li>
