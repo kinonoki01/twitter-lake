@@ -49,7 +49,9 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: twitter_lake_production
   username: twitter_lake
   password: <%= ENV['TWITTER_LAKE_DATABASE_PASSWORD'] %>
