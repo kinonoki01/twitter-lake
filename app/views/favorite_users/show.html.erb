@@ -12,7 +12,7 @@
       <% @favorite_users.each do |favorite_user| %>
         <tr>
           <td><%= link_to favorite_user.twitter_account, favorite_user, class: 'nav-link' %></td>
-          <td><%= link_to '削除', @favorite_user, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %></td>
+          <td class="text-center"><%= link_to (image_tag 'trash3.svg'), @favorite_user, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %></td>
         </tr>
       <% end %>
       <tr>

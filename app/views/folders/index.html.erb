@@ -12,12 +12,12 @@
       <% @folders.each do |folder| %>
         <tr>
           <td><%= link_to folder.name, folder_favorite_tweets_path(folder), class: 'nav-link' %></td>
-          <td><%= link_to '詳細', folder %></td>
+          <td class="text-center"><%= link_to image_tag('pencil-square.svg'), folder, class: 'btn' %></td>
         </tr>
       <% end %>
       <tr>
         <td colspan="2" class="text-center">
-          <%= link_to '＋', new_folder_path, class: 'btn btn-primary btn-lg w-50' %>
+          <%= link_to '＋', new_folder_path, class: 'btn btn-primary w-50' %>
         </td>
       </tr>
     </table>

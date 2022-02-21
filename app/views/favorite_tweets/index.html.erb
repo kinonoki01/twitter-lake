@@ -21,17 +21,22 @@
       </tr>
     </table>
   </div>
-  <div class="col-sm-9 overflow-auto" style="max-height: 100%;">
+  <div class="col-sm-9 mh-100">
+    <div class="card">
+      <div class="card-body">
+        
+      </div>
+    </div>
     <table class="table table-bordered">
       <% @favorite_tweets.each do |favorite_tweet| %>
         <tr>
           <td><%= favorite_tweet.tweet.html_safe %></td>
-          <td class="align-middle"><%= link_to (image_tag 'arrow-down-up.svg'), folder_favorite_tweet_path(@folder, favorite_tweet), class: 'nav-link' %></td>
+          <td class="align-middle"><%= link_to (image_tag 'pencil-square.svg'), folder_favorite_tweet_path(@folder, favorite_tweet), class: 'nav-link' %></td>
         </tr>
       <% end %>
     </table>
     <div class="text-center">
-      <%= link_to '＋', new_folder_favorite_tweet_path, class: 'btn btn-primary btn-lg w-50' %>
+      <%= link_to '＋', new_folder_favorite_tweet_path, class: 'btn btn-primary w-50' %>
     </div>
   </div>
 </div>
