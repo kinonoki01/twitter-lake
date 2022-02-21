@@ -2,6 +2,13 @@
   <h1>フォルダ名を入力</h1>
 </div>
 
-<div>
-  <%= render 'form', model: @folder %>
+<div class="row">
+  <div class="col-sm-6 offset-sm-3 mb-5">
+    <%= render 'form', model: @folder %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-2 offset-sm-10">
+    <%= link_to '戻る', folders_path, class: 'btn btn-primary rounded-pill w-100' %>
+  </div>
 </div>

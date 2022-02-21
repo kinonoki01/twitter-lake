@@ -1,7 +1,7 @@
 <div class="text-center mb-3 border-bottom">
   <h1>お気に入りツイートを保存</h1>
 </div>
-<div class="row">
+<div class="row mb-5">
   <div class="col-sm-6 offset-sm-3">
     <%= form_with(model: @favorite_tweet, url: folder_favorite_tweets_path) do |f| %>
       <div class="mb-3">
@@ -13,5 +13,10 @@
         <%= f.submit '追加', class: 'btn btn-primary w-100' %>
       </div>
     <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-2 offset-sm-10">
+    <%= link_to '戻る', folder_favorite_tweets_path, class: 'btn btn-primary rounded-pill w-100' %>
   </div>
 </div>
