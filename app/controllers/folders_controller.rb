@@ -8,6 +8,7 @@ class FoldersController < ApplicationController
 
   def show
     exist_folder
+    @favorite_tweets = @folder.favorite_tweets
   end
 
   def new

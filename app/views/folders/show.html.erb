@@ -4,7 +4,17 @@
 
 <div class="text-center ps-5 pe-5 mb-5">
   <h4>フォルダ名：<%= @folder.name %></h4>
-  <br>
+  <div class="row">
+    <div class="overflow-auto mb-3 col-sm-10 offset-1" style="height: 500px">
+      <table class="table table-bordered">
+        <% @favorite_tweets.each do |favorite_tweet| %>
+          <tr>
+            <td><%= favorite_tweet.tweet.html_safe %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
   <div class="row">
     <%= link_to '編集', edit_folder_path(@folder), class: 'btn btn-primary col-sm-3 offset-sm-2' %>
     <%= link_to '削除', @folder, method: :delete, data: {confirm: 'フォルダを削除するとツイートのお気に入りが全て解除されます。<br>本当によろしいですか？'}, class: 'btn btn-danger col-sm-3 offset-sm-2' %>
