@@ -2,20 +2,20 @@
   <p>ログインユーザ：<%= current_user.name %></p>
 <% end %>
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-5">
     <div class="mb-5 text-nowrap" style="position: relative; z-index: 100;">
       <h2>お気に入りのツイートをまとめて</h2>
       <h2>読み返そう！</h2>
     </div>
     <div class="mb-3">
-      <p>Twitter Lakeは好きなグループを作成して</p>
-      <p>ツイートを保管できるサービスです</p>
+      <p>Twitter LakeはツイートのURLを保存することで好きなツイートをフォルダ分けして閲覧できるサービスです</p>
+      <p>お気に入りのユーザーがいれば、ユーザーアカウントを登録することでタイムラインを閲覧することもできます</p>
     </div>
     <div class="text-center">
       <%= link_to '使ってみる', login_path, class: 'btn btn-primary rounded-pill' %>
     </div>
   </div>
-  <div class="col-sm-8">
+  <div class="col-sm-7">
     <%= image_tag 'ike.png' %>
   </div>
 </div>
