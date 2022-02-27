@@ -23,7 +23,7 @@ class FoldersController < ApplicationController
     @folder = current_user.folders.new(folder_params)
     if @folder.save
       flash[:success] = 'フォルダを追加しました'
-      redirect_to folders_url
+      redirect_to folder_favorite_tweets_url(@folder)
     else
       flash.now[:danger] = 'フォルダの追加に失敗しました'
       render :new
