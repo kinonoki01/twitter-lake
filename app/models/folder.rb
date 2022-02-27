@@ -3,5 +3,5 @@ class Folder < ApplicationRecord
   validates :position, presence: true, uniqueness: { scope: :user_id }
   
   belongs_to :user
-  has_many :favorite_tweets
+  has_many :favorite_tweets, dependent: :destroy
 end
