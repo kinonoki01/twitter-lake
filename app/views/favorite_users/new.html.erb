@@ -5,6 +5,7 @@
   <div class="row">
     <div class="col-sm-6 offset-sm-3">
       <%= form_with(model: @favorite_user) do |f| %>
+        <%= render 'layouts/error_messages', model: @favorite_user %>
         <div class="mb-3">
           <div class="row align-items-end">
             <div class="col-sm-3">
