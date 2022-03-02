@@ -45,6 +45,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'json'
 gem 'open-uri'
+gem 'rails-i18n'
 
 group :production do
   gem 'pg', '>= 0.18', '< 2.0'

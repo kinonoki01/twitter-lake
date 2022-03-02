@@ -1,0 +1,24 @@
+ja:
+  activerecord:
+    models:
+      favorite_tweet: お気に入りツイート
+      favorite_user: お気に入りユーザー
+      folder: フォルダ
+      user: ユーザー
+      user_setting: ユーザーセッティング
+      
+    attributes:
+      favorite_tweet:
+        tweet: ツイート
+      favorite_user:
+        twitter_account: ユーザー名
+      folder:
+        name: フォルダ名
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: confirmation
+      user_setting:
+        twitter_account_name: ツイッターアカウント名
+      
