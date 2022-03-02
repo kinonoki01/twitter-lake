@@ -37,7 +37,7 @@ class FoldersController < ApplicationController
   def update
     if @folder.update(folder_params)
       flash[:success] = 'フォルダの名前を更新しました'
-      redirect_to folders_url
+      redirect_to folder_favorite_tweets_url(@folder)
     else
       flash.now[:danger] = 'フォルダの名前の更新に失敗しました'
       render :edit
